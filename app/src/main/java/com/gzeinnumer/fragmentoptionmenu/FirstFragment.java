@@ -66,49 +66,4 @@ public class FirstFragment extends Fragment {
 
         }
     }
-
-    private static final String TAG = "assfasfasfsafasda";
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-
-
-        AppDatabase database =
-                Room.databaseBuilder(requireContext(), AppDatabase.class, "database-name")
-                        .build();
-
-        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                UserDao userDao = database.userDao();
-                List<User> users = userDao.getAll();
-                Log.d(TAG, "run1: "+users.size());
-                userDao.deleteAll();
-
-                userDao.insertAll(new User(1,"Zein", "Aja"));
-                users = userDao.getAll();
-                Log.d(TAG, "run2: "+users.size());
-                userDao.deleteAll();
-
-                userDao.insertAll(
-                        new User(2, "Data 2", "Data 2.2"),
-                        new User(3, "Data 2", "Data 2.2"),
-                        new User(4, "Data 2", "Data 2.2"),
-                        new User(5, "Data 2", "Data 2.2")
-                );
-
-                users = userDao.getAll();
-                Log.d(TAG, "run3: "+users.size());
-                userDao.deleteAll();
-
-                for (int i = 0; i < users.size(); i++) {
-                    Log.d(TAG, "run: "+users.get(i).toString());
-                }
-
-            }
-        });
-
-    }
 }
